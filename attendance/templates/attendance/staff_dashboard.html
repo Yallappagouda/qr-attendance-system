@@ -1,0 +1,39 @@
+{% extends "attendance/base.html" %}
+{% block title %}Staff Dashboard{% endblock %}
+{% block content %}
+<!-- staff_dashboard.html -->
+{% if qr_code %}
+  <img src="data:image/png;base64,{{ qr_code }}" alt="QR Code">
+{% endif %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow p-4 mb-4">
+            <h2 class="mb-4">Staff Dashboard</h2>
+            <a href="{% url 'add_student' %}" class="btn btn-success mb-3">Add Student</a>
+            <a href="{% url 'create_session' %}" class="btn btn-primary mb-3 ms-2">Create Session</a>
+        </div>
+        <div class="card shadow p-4 mb-4">
+            <h4>Attendance Sessions</h4>
+            <ul class="list-group">
+                {% for session in sessions %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ session.title }} ({{ session.start_time|date:"Y-m-d H:i" }})
+                    <a href="{% url 'staff_export_attendance' session.id %}" class="btn btn-outline-primary btn-sm">Export</a></li>
+                {% empty %}
+                <li class="list-group-item">No sessions yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card shadow p-4">
+            <h4>Students</h4>
+            <ul class="list-group">
+                {% for student in students %}
+                <li class="list-group-item">{{ student.student_id }} - {{ student.user.get_full_name }} - {% if student.is_approved %}<span class="badge bg-success">Approved</span>{% else %}<span class="badge bg-warning text-dark">Pending</span>{% endif %}</li>
+                {% empty %}
+                <li class="list-group-item">No students yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

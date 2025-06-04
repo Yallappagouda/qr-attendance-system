@@ -1,0 +1,16 @@
+{% extends "attendance/base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff Login</title>
+</head>
+<body>
+    <h2>Staff Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+    <p style="color:red;">{{ msg }}</p>
+</body>
+</html>

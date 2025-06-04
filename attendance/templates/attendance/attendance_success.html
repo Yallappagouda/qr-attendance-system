@@ -1,0 +1,8 @@
+{% extends "attendance/base.html" %}
+{% block content %}
+  {% if already_marked %}
+    <p>Your attendance was already recorded for this session.</p>
+  {% else %}
+    <p>Your attendance has been successfully recorded.</p>
+  {% endif %}
+{% endblock %}

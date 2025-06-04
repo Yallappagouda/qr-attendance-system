@@ -1,0 +1,15 @@
+{% extends "attendance/base.html" %}
+{% block content %}
+  {% if session and session.session_qr %}
+    <h2>Session: {{ session.title }}</h2>
+    <p>Time: {{ session.start_time|date:"Y-m-d H:i" }} - {{ session.end_time|date:"Y-m-d H:i" }}</p>
+    <img src="{{ session.session_qr.url }}" alt="Session QR Code" style="width:200px;height:200px;">
+    <form method="post" action="{% url 'mark_attendance' %}">
+      {% csrf_token %}
+      <input type="hidden" name="session_id" value="{{ session.id }}">
+      <button type="submit" class="btn btn-success">Mark My Attendance</button>
+    </form>
+  {% else %}
+    <p>No active session or QR code available. Please contact your staff.</p>
+  {% endif %}
+{% endblock %}

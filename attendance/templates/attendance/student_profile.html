@@ -1,0 +1,15 @@
+{% extends "attendance/base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Profile</title>
+</head>
+<body>
+    <h2>Welcome, {{ profile.user.get_full_name }}</h2>
+    <p>Student ID: {{ profile.student_id }}</p>
+    <img src="{{ profile.qr_code.url }}" alt="QR Code"><br>
+    <a href="{% url 'download_id_card' %}">Download QR ID Card</a>
+    <!-- In student_profile.html -->
+    <a href="{% url 'attendance_scan' %}" class="btn btn-main">Scan Attendance</a>
+</body>
+</html>
